@@ -1,14 +1,7 @@
 # SD-Test
 
-Программа написанная для тестового задания.
+A simple game, developed as a test task.
 
-## Время затраченное на задачи.
+The gameplay is copied from Hit Master 3D, but with the addition of third person camera.
 
-1) Собрать локацию: 2 часа.
-2) Расставить вейпонты и реализовать движение персонажа: 5 часов.
-3) Реализовать стрельбу и реакцию противника: 4 часа.
-
-Дополнительные задачи:
-1) Добавить противникам рэгдолл после смерти: 1.5 часа.
-2) Добавить противникам отображение полоски жизней: 1.5 часа.
- 
+There is only one level, when it's finished, the game restarts.

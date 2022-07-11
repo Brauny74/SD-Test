@@ -6,7 +6,7 @@ namespace TestGame
     public class GameManager : Singleton<GameManager>
     {
         public bool paused;
-        public GameObject player;
+        public PlayerMovement player;
         public GameObject gameOverButton;
 
         private void Start()
@@ -30,6 +30,11 @@ namespace TestGame
         public Vector3 GetPlayerPosition()
         {
             return player.transform.position;
+        }
+
+        public void MovePlayer()
+        {
+            player.Move();
         }
 
         public void RestartLevel()

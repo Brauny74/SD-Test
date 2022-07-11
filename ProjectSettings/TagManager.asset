@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Projectile
   - Enemy
+  - DamageZone
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -15,9 +17,9 @@ TagManager:
   - UI
   - Projectile
   - Player
-  - 
-  - 
-  - 
+  - Skybox
+  - ShootWall
+  - Enemy
   - 
   - 
   - 

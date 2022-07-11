@@ -4,15 +4,28 @@ using UnityEngine;
 
 namespace TestGame
 {
+    [RequireComponent(typeof(TestTools.Poolable))]
     public class BulletDamage : MonoBehaviour
     {
-        [Tooltip("A tag used by the object launching this bullet and ignored on launch by it.")]
-        public string launcherTag;
+        TestTools.Poolable poolable;
+
+        [SerializeField]
+        [Tooltip("Tags used by the object this bullet can collide with.")]
+        protected List<string> tagsToCollide;
+
+
+        private void Awake()
+        {
+            poolable = GetComponent<TestTools.Poolable>();
+        }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.tag != launcherTag)
-                gameObject.SetActive(false);
+            foreach (string tagToCollide in tagsToCollide)
+            {
+                if (collision.gameObject.CompareTag(tagToCollide))
+                    poolable.ReturnToPool();
+            }
         }
     }
 }

@@ -7,27 +7,28 @@ namespace TestGame
     [RequireComponent(typeof(Rigidbody))]
     public class BulletMovement : MonoBehaviour
     {
-        public float Speed;
+        [SerializeField]
+        protected float speed;
 
         public enum Directions { Forward, Backward, Left, Right }
         public Directions direction;
 
-        Rigidbody _rBody;
+        protected Rigidbody rBody;
 
         private void Awake()
         {
-            _rBody = GetComponent<Rigidbody>();
+            rBody = GetComponent<Rigidbody>();
         }
 
         private void OnEnable()
         {
-            _rBody.velocity = Vector3.zero;
-            _rBody.angularVelocity = Vector3.zero;
+            rBody.velocity = Vector3.zero;
+            rBody.angularVelocity = Vector3.zero;
         }
 
         private void FixedUpdate()
         {
-            _rBody.AddRelativeForce(GetDirectionVector() * Speed, ForceMode.Force);
+            rBody.AddRelativeForce(GetDirectionVector() * speed, ForceMode.Force);
         }
 
         private Vector3 GetDirectionVector()

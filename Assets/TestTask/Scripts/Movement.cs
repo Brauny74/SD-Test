@@ -6,27 +6,29 @@ namespace TestGame
     [RequireComponent(typeof(NavMeshAgent))]
     public class Movement : MonoBehaviour
     {
-        public Animator animatedBody;
-        NavMeshAgent _agent;
+        [SerializeField]
+        protected Animator animatedBody;
+
+        protected NavMeshAgent agent;
 
         protected virtual void Awake()
         {
-            _agent = GetComponent<NavMeshAgent>();
+            agent = GetComponent<NavMeshAgent>();
         }
 
         public void Stop()
         {
-            _agent.isStopped = true;
+            agent.isStopped = true;
         }
 
         protected void MoveTo(Vector3 target)
         {
             NavMeshPath path = new NavMeshPath();
-            _agent.CalculatePath(target, path);
+            agent.CalculatePath(target, path);
             if (path.status == NavMeshPathStatus.PathComplete)
             {
-                _agent.isStopped = false;
-                _agent.SetPath(path);
+                agent.isStopped = false;
+                agent.SetPath(path);
             }
         }
         
@@ -37,7 +39,7 @@ namespace TestGame
 
         private void UpdateAnimation()
         {
-            animatedBody.SetFloat("Velocity", _agent.velocity.magnitude);
+            animatedBody.SetFloat("Velocity", agent.velocity.magnitude);
         }
     }
 }

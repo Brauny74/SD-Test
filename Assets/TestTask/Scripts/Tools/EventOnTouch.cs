@@ -5,19 +5,21 @@ namespace TestTools
 { 
     public class EventOnTouch : MonoBehaviour
     {
-        public string tagToTouch;
+        [SerializeField]
+        protected string tagToTouch;
 
-        public UnityEvent OnObjectTouch;
+        [SerializeField]
+        protected UnityEvent OnObjectTouch;
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.tag == tagToTouch)
+            if(other.gameObject.CompareTag(tagToTouch))
                 OnObjectTouch.Invoke();
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.tag == tagToTouch)
+            if (collision.gameObject.CompareTag(tagToTouch))
                 OnObjectTouch.Invoke();
         }
     }

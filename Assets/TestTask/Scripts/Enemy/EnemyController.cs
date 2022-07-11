@@ -4,11 +4,18 @@ using UnityEngine;
 
 namespace TestGame
 {
+    [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(EnemyMovement))]
     public class EnemyController : MonoBehaviour
-    {        
+    {
+        [SerializeField]
+        protected string PlayerTag;
+
+        [SerializeField]
+        protected RagdollController ragdollController;
+
         public EnemyMovement movement;
         public Health health;
-        public GameObject ragdollToInstantiate;
 
         public bool engaged;        
 
@@ -21,15 +28,11 @@ namespace TestGame
                 movement.Stop();
         }
 
-        public bool IsEngaged()
-        {
-            return engaged;
-        }
-
         private void Awake()
         {
             movement = GetComponent<EnemyMovement>();
             health = GetComponent<Health>();
+            ragdollController.SetCollidersActive(false);
         }
 
         public void LoseGame()
@@ -37,11 +40,23 @@ namespace TestGame
             GameManager.Instance.LoseGame();
         }
 
-        public void Ragdoll()
+        public void Die()
         {
-            GameObject ragdoll = Instantiate(ragdollToInstantiate);
-            ragdoll.transform.position = transform.position;
-            ragdoll.transform.rotation = transform.rotation;
+            engaged = false;
+            Ragdoll();
+        }
+
+        private void Ragdoll()
+        {
+            ragdollController.SetCollidersActive(true);
+            ragdollController.SetAnimatorActive(false);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag(PlayerTag))
+                if(engaged)
+                    LoseGame();
         }
     }
 }

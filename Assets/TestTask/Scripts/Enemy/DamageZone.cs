@@ -6,15 +6,16 @@ namespace TestGame
     public class DamageZone : MonoBehaviour
     {
         public Health healthToDamage;
-        public int damageFromBullet;
-        public string bulletTag = "Projectile";
+        [SerializeField]
+        protected int damageFromBullet;
+        [SerializeField]
+        protected string bulletTag = "Projectile";
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == bulletTag)
             {
-                healthToDamage.DealDamage(damageFromBullet);
-                other.gameObject.SetActive(false);
+                healthToDamage.DealDamage(damageFromBullet);                
             }
         }
     }

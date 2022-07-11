@@ -6,11 +6,16 @@ namespace TestTools
 {
     public class Pooler : MonoBehaviour
     {
-        public int poolSize;
-        public bool expandablePool;
-        public GameObject objectToPool;
+        [SerializeField]
+        protected int poolSize;
+        [SerializeField]
+        protected bool expandablePool;
+        
+        [Tooltip("Must contain Poolable component, or won't work.")]
+        [SerializeField]
+        protected GameObject objectToPool;
 
-        protected List<GameObject> pool;
+        protected List<Poolable> pool;
 
         protected virtual void Start()
         {
@@ -21,31 +26,45 @@ namespace TestTools
         {
             for (int i = 0; i < pool.Count; i++)
             {
-                if (!pool[i].activeInHierarchy)
+                if (!pool[i].Active)
                 {
-                    pool[i].SetActive(true);
-                    return pool[i];
+                    pool[i].Activate(true);
+                    return pool[i].gameObject;
                 }
             }
             if (expandablePool)
             {
-                return AddObject();
+                return AddObject().gameObject;
             }
             return null;
         }
 
-        protected virtual void FillObjectPool()
+        public void ReturnPooledObject(Poolable pooledObject)
         {
-            pool = new List<GameObject>();
-            for (int i = 0; i < poolSize; i++)
+            for (int i = 0; i < pool.Count; i++)
             {
-                AddObject().SetActive(false);
+                if (pooledObject == pool[i])
+                {
+                    pooledObject.Activate(false);
+                }
             }
         }
 
-        protected GameObject AddObject()
+        protected virtual void FillObjectPool()
         {
-            GameObject newObject = Instantiate(objectToPool, transform);
+            pool = new List<Poolable>();
+            for (int i = 0; i < poolSize; i++)
+            {
+                AddObject().Activate(false);
+            }
+        }
+
+        protected Poolable AddObject()
+        {
+            Poolable newObject = Instantiate(objectToPool, transform).GetComponent<Poolable>();
+            if (newObject == null)
+                Debug.LogError(newObject.name + " in pool " + gameObject.name + " is not Poolable.");
+            newObject.Initialize(this);
             pool.Add(newObject);
             return newObject;
         }

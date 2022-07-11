@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3540126755642187370}
   - component: {fileID: 3364229469824403062}
   - component: {fileID: -3788950056292541993}
+  - component: {fileID: 961299297256262467}
   m_Layer: 6
   m_Name: Bullet
   m_TagString: Projectile
@@ -114,7 +115,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!114 &3364229469824403062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9415837353fa6ed4f9ccb389950412e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 100
+  speed: 50
   direction: 0
 --- !u!114 &-3788950056292541993
 MonoBehaviour:
@@ -141,4 +142,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c81978c2249271448ac06cff1b5728dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launcherTag: Player
+  tagsToCollide:
+  - DamageZone
+  - Obstacle
+--- !u!114 &961299297256262467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5238176247076191025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9463aa83cf0337f489a1963ad5a44384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 0

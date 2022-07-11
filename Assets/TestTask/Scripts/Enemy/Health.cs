@@ -3,17 +3,25 @@ using UnityEngine.Events;
 
 namespace TestGame
 {
+    [RequireComponent(typeof(EnemyController))]
     public class Health : MonoBehaviour
     {
-        public int maxHealthPoints;
-        private int healthPoints;
-        public bool destroyOnDeath;
+        [SerializeField]
+        protected int maxHealthPoints;
+        protected int healthPoints;
 
-        public UnityEngine.UI.Image healthBar;
+        [SerializeField]
+        protected bool destroyOnDeath;
+
+        [SerializeField]
+        protected Canvas healthBarCanvas;
+
+        [SerializeField]
+        protected UnityEngine.UI.Image healthBar;
 
         public UnityEvent OnDeath;
 
-        private EnemyController controller;
+        protected EnemyController controller;
 
         private void Awake()
         {
@@ -45,14 +53,8 @@ namespace TestGame
         private void Die()
         {
             OnDeath.Invoke();
-            if (destroyOnDeath)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                gameObject.SetActive(false);
-            }
+            controller.Die();
+            healthBarCanvas.gameObject.SetActive(false);
         }
     }
 }

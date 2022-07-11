@@ -4,15 +4,17 @@ using UnityEngine;
 
 namespace TestGame
 {    
+    [RequireComponent(typeof(PlayerShoot))]
     public class PlayerInput : MonoBehaviour
     {
+        [SerializeField]
         [Tooltip("Layers, which when touched, return direction for bullet. Should be everything, BUT player and projectile layer.")]
-        public LayerMask LayersUsedForShooting;
+        protected LayerMask layersUsedForShooting;
 
-        private PlayerShoot shoot;
+        protected PlayerShoot shoot;
 
-        enum InputStates { Idle, Pressed, Released }
-        InputStates currentInputState;
+        protected enum InputStates { Idle, Pressed, Released }
+        protected InputStates currentInputState;
 
         private void Awake()
         {
@@ -56,7 +58,7 @@ namespace TestGame
             Vector3 screenPos = GetTouchPosition();
             Ray ray = Camera.main.ScreenPointToRay(screenPos);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayersUsedForShooting))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layersUsedForShooting))
             {
                 return hit.point;
             }

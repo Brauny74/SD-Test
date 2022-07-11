@@ -6,7 +6,8 @@ namespace TestGame
 {
     public class PlayerMovement : Movement
     {
-        public Route route;
+        [SerializeField]
+        protected Route route;
 
         public void Move()
         {

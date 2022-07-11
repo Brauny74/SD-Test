@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 namespace TestGame
 {
+    [RequireComponent(typeof(EnemyController))]
     public class EnemyMovement : Movement
     {
         private EnemyController controller;
